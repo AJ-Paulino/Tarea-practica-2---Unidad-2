@@ -16,7 +16,7 @@ namespace Tarea_práctica_2___Unidad_2
 
             while (continuar)
             {
-                Console.WriteLine("Ingrese un número (Presione la letra f para finalizar la lista.):");
+                Console.WriteLine("\nIngrese un número (Presione la letra f para finalizar la lista.):");
                 string input = Console.ReadLine();
 
                 if (input.ToLower() == "f")
@@ -29,11 +29,11 @@ namespace Tarea_práctica_2___Unidad_2
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Entrada no válida. Por favor, ingrese un valor numérico o presione la letra f para finalizar.");
+                    Console.WriteLine("\nEntrada no válida. Por favor, ingrese un valor numérico o presione la letra f para finalizar.");
                 }
             }
 
-            Console.WriteLine("Seleccione una operación: 1) Suma 2) Resta 3) Multiplicación 4) División 5) Salir");
+            Console.WriteLine("\nSeleccione una operación: \n1) Suma \n2) Resta \n3) Multiplicación \n4) División \n5) Salir");
             string opcion = Console.ReadLine();
 
             try
@@ -41,32 +41,32 @@ namespace Tarea_práctica_2___Unidad_2
                 switch (opcion)
                 {
                     case "1":
-                        Console.WriteLine("Resultado de la suma: " + lista.Sumar());
+                        Console.WriteLine("\nResultado de la suma es: " + lista.RealizarOperacion(lista.Sumar));
                         break;
                     case "2":
-                        Console.WriteLine("Resultado de la resta: " + lista.Restar());
+                        Console.WriteLine("\nResultado de la resta es: " + lista.RealizarOperacion(lista.Restar));
                         break;
                     case "3":
-                        Console.WriteLine("Resultado de la multiplicación: " + lista.Multiplicar());
+                        Console.WriteLine("\nResultado de la multiplicación es: " + lista.RealizarOperacion(lista.Multiplicar));
                         break;
                     case "4":
-                        Console.WriteLine("Resultado de la división: " + lista.Dividir());
+                        Console.WriteLine("\nResultado de la división es: " + lista.RealizarOperacion(lista.Dividir));
                         break;
                     case "5":
-                        Console.WriteLine("Saliendo...");
+                        Console.WriteLine("\nSaliendo...");
                         break;
                     default:
-                        Console.WriteLine("Opción no válida.");
+                        Console.WriteLine("\nOpción no válida.");
                         break;
                 }
             }
             catch (InvalidOperationException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"\nHa ocurrido un error. {ex.Message}");
             }
             catch (DivideByZeroException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"\nHa ocurrido un error. {ex.Message}");
             }
         }
     }

@@ -8,60 +8,35 @@ namespace Tarea_práctica_2___Unidad_2
 {
     public class ListaDeNumeros<T>
     {
-        private List<T> numeros = new List<T>();
+        public List<T> numeros = new List<T>();
 
         public void AgregarNumero(T numero)
         {
             numeros.Add(numero);
         }
 
-        public T Sumar()
+        public delegate T OperacionMatematica<T>(T a, T b);
+        public T Sumar(T a, T b) => (dynamic)a + (dynamic)b;
+        public T Restar(T a, T b) => (dynamic)a - (dynamic)b;
+        public T Multiplicar(T a, T b) => (dynamic)a * (dynamic)b;
+        public T Dividir(T a, T b)
         {
-            dynamic suma = 0;
-            foreach (var numero in numeros)
-            {
-                suma += (dynamic)numero;
-            }
-            return suma;
+            if ((dynamic)b == 0)
+                throw new DivideByZeroException("No es posible dividir por cero. Intente iniciar nuevamente.");
+            return (dynamic)a / (dynamic)b;
         }
 
-        public T Restar()
-        {
-            if (numeros.Count < 2)
-                throw new InvalidOperationException("Debe ingresar más de un número para realizar una resta.");
-
-            dynamic resta = (dynamic)numeros[0];
-            for (int i = 1; i < numeros.Count; i++)
-            {
-                resta -= (dynamic)numeros[i];
-            }
-            return resta;
-        }
-
-        public T Multiplicar()
-        {
-            dynamic producto = 1;
-            foreach (var numero in numeros)
-            {
-                producto *= (dynamic)numero;
-            }
-            return producto;
-        }
-
-        public T Dividir()
+        public T RealizarOperacion(OperacionMatematica<T> operacion)
         {
             if (numeros.Count < 2)
-                throw new InvalidOperationException("Debe ingresar al menos un divisor y un dividendo para realizar la división.");
+                throw new InvalidOperationException("La lista debe contener al menos dos números para realizar la operación.");
 
-            dynamic division = (dynamic)numeros[0];
+            T resultado = numeros[0];
             for (int i = 1; i < numeros.Count; i++)
             {
-                if ((dynamic)numeros[i] == 0)
-                    throw new DivideByZeroException("No se puede dividir entre cero.");
-
-                division /= (dynamic)numeros[i];
+                resultado = operacion(resultado, numeros[i]);
             }
-            return division;
-        }
+            return resultado;
+        }        
     }
 }
